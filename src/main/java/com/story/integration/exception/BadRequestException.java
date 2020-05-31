@@ -2,7 +2,6 @@ package com.story.integration.exception;
 
 public class BadRequestException extends RuntimeException{
 
-	
 	/**
 	 * 
 	 */

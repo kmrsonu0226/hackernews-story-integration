@@ -31,16 +31,16 @@ public class StoryServiceImpl implements StoryService {
 	@Cacheable("newTopStories")
 	public List<Story> getTopStories() throws Exception {
 		List<Story> stories = new ArrayList<>();
-			int minutes = 10;
-			stories = getTopStoriesDetails(minutes);
-			if(stories == null || stories.isEmpty()) {
-				throw new StoryNotFoundException("No story found");
-			}
-			if (stories.size() > 10) {
-				stories = stories.subList(0, 10);
-			}
-			storyRepository.saveAll(stories);
-			return stories;
+		int minutes = 10;
+		stories = getTopStoriesDetails(minutes);
+		if (stories == null || stories.isEmpty()) {
+			throw new StoryNotFoundException("No story found");
+		}
+		if (stories.size() > 10) {
+			stories = stories.subList(0, 10);
+		}
+		storyRepository.saveAll(stories);
+		return stories;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -65,7 +65,6 @@ public class StoryServiceImpl implements StoryService {
 					storyList.add(ns);
 				}
 			}
-
 			return storyList.parallelStream().filter(Objects::nonNull)
 					.filter(story -> story.getTime() != null && story.getTime().after(tenMinBefore))
 					.sorted(Comparator.comparing(Story::getScore).reversed()).collect(Collectors.toList());
@@ -79,7 +78,7 @@ public class StoryServiceImpl implements StoryService {
 	@Override
 	@Cacheable(value = "parentComments", key = "#storyId")
 	public List<Comment> getCommentsOnTheStory(Integer storyId) throws Exception {
-		if(storyId == null || storyId < 0) {
+		if (storyId == null || storyId < 0) {
 			throw new IllegalArgumentException("Invalid parameter");
 		}
 		List<Comment> parentCommentList = new ArrayList<>();
@@ -99,7 +98,6 @@ public class StoryServiceImpl implements StoryService {
 					if (user != null) {
 						parentComment
 								.setUserAge((System.currentTimeMillis() - user.getCreated().getTime()) / 31536000000L); // (365*24*60*60*1000)
-																													
 					}
 					if (parentComment.getKids() != null && !parentComment.getKids().isEmpty()) {
 						parentComment.setReplyCount(parentWithReplyCommentCount(id));
@@ -131,7 +129,6 @@ public class StoryServiceImpl implements StoryService {
 		}
 		return comment.getReplyCount();
 	}
-
 
 	@Override
 	public List<Story> getPastStories() throws Exception {
