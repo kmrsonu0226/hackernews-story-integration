@@ -1,17 +1,20 @@
 # Getting Started
 
-#Application name : story-app
+# Application name : story-app
 
 Technology Used : Java8, SpringBoot, In-memory db(H2Database), In-memory cache
+for documentation : Swagger2
 
-#URLs
+# URLs
 *context-path : localhost:9001/v1/hackernews/
 
+# Swagger Documentation
 *swagger url : localhost:9001/v1/hackernews/swagger-ui.html
 
+# H2 database console
 *h2-database console : localhost:9001/v1/hackernews/h2
 
-#Application properties :
+# Application properties :
  1. Defined database configuration, cache configuration in "src/main/resource/application.yml".
  2. Cache configuration in "src/main/java/com/story/integration/config/CacheConfig.java";
  2. Used In-memory database(H2databse)  and predefined schema("src/main/resources.schema.sql")
@@ -34,7 +37,7 @@ Technology Used : Java8, SpringBoot, In-memory db(H2Database), In-memory cache
   --RUN--
   --docker run docker run -p 9001:9001 hackernews-integration:latest
 
-#Useful urls
+# Useful urls
 --for h2 database console
   -- localhost:9001/v1/hackernews/h2
    * use JDBC url as : "jdbc:h2:~/test"
