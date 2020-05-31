@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: story-app
+  datasource:
+    #url: jdbc:h2:mem:testdb
+    url: jdbc:h2:~/test
+    driverClassName: org.h2.Driver
+    username: sa
+    password: 
+  h2:
+    console:
+      enabled: true
+      path: /h2
+      
+# using mongodb to save the served stories
+
+#  data:
+#    mongodb:
+#      uri: mongodb://localhost:27017/hackernews/authSource=admin
+
+# cache configuration for redis 
+#  cache:
+#    type: redis
+#    redis:
+#      time-to-live: 600000
+#  redis:
+#    host: 127.0.0.1
+#    port: 6379 
+
+server:
+  port: 9001
+  servlet:
+    context-path: /v1/hackernews
+ 
+endpoints:
+  hackernews-api : https://hacker-news.firebaseio.com/v0/
+    
+   
