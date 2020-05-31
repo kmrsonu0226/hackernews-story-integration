@@ -116,47 +116,30 @@ public class StoryServiceImplTest {
 	public void getStoriesTest() throws Exception{
 			Mockito.when(storyServiceImpl.getTopStoriesDetails(10)).thenReturn(null);
 			List<Story> stories = storyServiceImpl.getTopStories();
-//			Story s = (Story)hackerNewsApiService.getItemByIdAndClassType(id, Story.class);
 			System.out.println(stories);
 	}
 	
 	@Test
-	public void getStoriesTest0() {
-		try {
-
+	public void getStoriesTest0() throws Exception{
 			Mockito.when(hackerNewsApiService.getNewStoryFromHackerNews()).thenReturn(storyIds);
 			for (Integer id : storyIds) {
 				Mockito.when((Story) hackerNewsApiService.getItemByIdAndClassType(id, Story.class))
 						.thenReturn(storyMap.get(id));
 			}
 			List<Story> stories = storyServiceImpl.getTopStories();
-//			Story s = (Story)hackerNewsApiService.getItemByIdAndClassType(id, Story.class);
 			System.out.println(stories);
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 
 	@Test
-	public void getStoriesTest1() {
-		try {
-
+	public void getStoriesTest1() throws Exception{
 			Mockito.when(hackerNewsApiService.getNewStoryFromHackerNews()).thenReturn(storyIds);
 			for (Integer id : storyIds) {
 				Mockito.when((Story) hackerNewsApiService.getItemByIdAndClassType(id, Story.class))
 						.thenReturn(storyMap.get(id));
 			}
 			List<Story> stories = storyServiceImpl.getTopStoriesDetails(10);
-//			Story s = (Story)hackerNewsApiService.getItemByIdAndClassType(id, Story.class);
 			System.out.println(stories);
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	@Test(expected = StoryNotFoundException.class)

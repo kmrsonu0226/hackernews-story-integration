@@ -3,7 +3,13 @@
 #Application name : story-app
 
 Technology Used : Java8, SpringBoot, In-memory db(H2Database), In-memory cache
-context-path : localhost:9001/v1/hackernews/
+
+#URLs
+*context-path : localhost:9001/v1/hackernews/
+
+*swagger url : localhost:9001/v1/hackernews/swagger-ui.html
+
+*h2-database console : localhost:9001/v1/hackernews/h2
 
 #Application properties :
  1. Defined database configuration, cache configuration in "src/main/resource/application.yml".
