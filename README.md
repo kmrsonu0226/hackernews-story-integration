@@ -7,13 +7,13 @@ Technology Used : Java8, SpringBoot, In-memory db(H2Database), In-memory cache
 for documentation : Swagger2
 
 # URLs
-*context-path : localhost:9001/v1/hackernews/
+*context-path : localhost:9001/hackernews/
 
 # Swagger Documentation
-*swagger url : localhost:9001/v1/hackernews/swagger-ui.html
+*swagger url : localhost:9001/hackernews/swagger-ui.html
 
 # H2 database console
-*h2-database console : localhost:9001/v1/hackernews/h2
+*h2-database console : localhost:9001/hackernews/h2
 
 # Application properties :
  1. Defined database configuration, cache configuration in "src/main/resource/application.yml".
@@ -40,9 +40,20 @@ for documentation : Swagger2
 
 # Useful urls
 --for h2 database console
-  -- localhost:9001/v1/hackernews/h2
+  -- localhost:9001/hackernews/h2
    * use JDBC url as : "jdbc:h2:~/test"
    * username : "sa"
    * password : ""
+   
+# Test URLs
+  * /top-stories
+     http://localhost:9001/hackernews/v1/story/top-stories
+     
+  * /past-stories
+     http://localhost:9001/hackernews/v1/story/past-stories
+     
+  *  /comment
+     http://localhost:9001/hackernews/v1/story/comment?story-id=23374667
+     
    
  

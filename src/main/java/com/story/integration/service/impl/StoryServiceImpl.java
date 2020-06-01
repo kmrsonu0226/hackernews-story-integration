@@ -5,7 +5,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -29,7 +31,7 @@ public class StoryServiceImpl implements StoryService {
 
 	@Override
 	@Cacheable("newTopStories")
-	public List<Story> getTopStories() throws Exception {
+	public List<Map<String, Object>> getTopStories() throws Exception {
 		List<Story> stories = new ArrayList<>();
 		int minutes = 10;
 		stories = getTopStoriesDetails(minutes);
@@ -40,10 +42,25 @@ public class StoryServiceImpl implements StoryService {
 			stories = stories.subList(0, 10);
 		}
 		storyRepository.saveAll(stories);
-		return stories;
+		return getStoryResponse(stories);
+	}
+	
+	private List<Map<String, Object>> getStoryResponse(List<Story> storyList) {
+		return storyList.stream()
+			.map(s -> {
+				Map<String, Object> map = new HashMap<>();
+				map.put("id", s.getId());
+				map.put("title", s.getTitle());
+				map.put("url", s.getUrl());
+				map.put("score", s.getScore());
+				map.put("time", s.getTime());
+				map.put("by", s.getBy());
+				return map;
+			}).collect(Collectors.toList());
 	}
 
-	@SuppressWarnings("unchecked")
+	
+
 	public List<Story> getTopStoriesDetails(int minutes) throws Exception {
 		try {
 			Timestamp tenMinBefore = Timestamp.valueOf(LocalDateTime.now().minusMinutes(minutes));
@@ -76,8 +93,8 @@ public class StoryServiceImpl implements StoryService {
 	}
 
 	@Override
-	@Cacheable(value = "parentComments", key = "#storyId")
-	public List<Comment> getCommentsOnTheStory(Integer storyId) throws Exception {
+	@Cacheable("parentComments")
+	public List<Map<String, Object>> getCommentsOnTheStory(Integer storyId) throws Exception {
 		if (storyId == null || storyId < 0) {
 			throw new IllegalArgumentException("Invalid parameter");
 		}
@@ -111,9 +128,21 @@ public class StoryServiceImpl implements StoryService {
 		}
 		Collections.sort(parentCommentList, Comparator.comparing(Comment::getReplyCount).reversed());
 		if (parentCommentList.size() > 10) {
-			return parentCommentList.subList(0, 10);
+			return getCommentResponse(parentCommentList.subList(0, 10));
 		}
-		return parentCommentList;
+		return getCommentResponse(parentCommentList);
+	}
+	
+	private List<Map<String, Object>> getCommentResponse(List<Comment> parentCommentList) {
+		return parentCommentList.stream()
+			.map(c -> {
+				Map<String, Object> map = new HashMap<>();
+				map.put("id", c.getId());
+				map.put("text", c.getText());
+				map.put("userHandle", c.getBy());
+				map.put("userAge", c.getUserAge());
+				return map;
+			}).collect(Collectors.toList());
 	}
 
 	/*
@@ -135,7 +164,7 @@ public class StoryServiceImpl implements StoryService {
 	}
 
 	@Override
-	public List<Story> getPastStories() throws Exception {
+	public List<Map<String, Object>> getPastStories() throws Exception {
 		List<Story> stories = new ArrayList<>();
 		try {
 			stories = storyRepository.findAll();
@@ -143,9 +172,9 @@ public class StoryServiceImpl implements StoryService {
 			throw e;
 		}
 		if (stories == null || stories.isEmpty()) {
-			throw new StoryNotFoundException("Stories not found");
+			throw new StoryNotFoundException(" No past Stories found");
 		}
-		return stories;
+		return getStoryResponse(stories);
 	}
 
 	private static Logger logger = LoggerFactory.getLogger(StoryServiceImpl.class);

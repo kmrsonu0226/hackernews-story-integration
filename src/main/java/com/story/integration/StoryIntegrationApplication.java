@@ -1,5 +1,7 @@
 package com.story.integration;
 
+import java.time.Duration;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -15,6 +17,8 @@ public class StoryIntegrationApplication {
 
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+		builder.setConnectTimeout(Duration.ofSeconds(60));
+		builder.setReadTimeout(Duration.ofSeconds(60));
 		return builder.build();
 	}
 

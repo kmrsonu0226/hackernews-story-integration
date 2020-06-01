@@ -113,11 +113,16 @@ public class StoryServiceImplTest {
 	}
 	
 	@Test(expected = StoryNotFoundException.class)
-	public void getStoriesTest() throws Exception{
+	public void getStoriesNullTest() throws Exception{
 			Mockito.when(storyServiceImpl.getTopStoriesDetails(10)).thenReturn(null);
-			List<Story> stories = storyServiceImpl.getTopStories();
+			List<Map<String, Object>> stories = storyServiceImpl.getTopStories();
 			System.out.println(stories);
 	}
+	public void getStoriesTest() throws Exception{
+		Mockito.when(storyServiceImpl.getTopStoriesDetails(10)).thenReturn(new ArrayList<>());
+		List<Map<String, Object>> stories = storyServiceImpl.getTopStories();
+		System.out.println(stories);
+}
 	
 	@Test
 	public void getStoriesTest0() throws Exception{
@@ -126,7 +131,7 @@ public class StoryServiceImplTest {
 				Mockito.when((Story) hackerNewsApiService.getItemByIdAndClassType(id, Story.class))
 						.thenReturn(storyMap.get(id));
 			}
-			List<Story> stories = storyServiceImpl.getTopStories();
+			List<Map<String, Object>> stories = storyServiceImpl.getTopStories();
 			System.out.println(stories);
 	}
 
@@ -158,7 +163,7 @@ public class StoryServiceImplTest {
 		int id = 2;
 		Mockito.when((Story) hackerNewsApiService.getItemByIdAndClassType(id, Story.class))
 				.thenReturn(storyMap.get(id));
-		List<Comment> comments = storyServiceImpl.getCommentsOnTheStory(-1);
+		List<Map<String, Object>> comments = storyServiceImpl.getCommentsOnTheStory(-1);
 
 	}
 	
@@ -167,7 +172,7 @@ public class StoryServiceImplTest {
 		int id = 2;
 		Mockito.when((Story) hackerNewsApiService.getItemByIdAndClassType(id, Story.class))
 				.thenReturn(null);
-		List<Comment> comments = storyServiceImpl.getCommentsOnTheStory(id);
+		List<Map<String, Object>> comments = storyServiceImpl.getCommentsOnTheStory(id);
 
 	}
 	
@@ -176,7 +181,7 @@ public class StoryServiceImplTest {
 		int id = 2;
 		Mockito.when((Story) hackerNewsApiService.getItemByIdAndClassType(id, Story.class))
 				.thenReturn(storyMap.get(id));
-		List<Comment> comments = storyServiceImpl.getCommentsOnTheStory(null);
+		List<Map<String, Object>> comments = storyServiceImpl.getCommentsOnTheStory(null);
 
 	}
 
@@ -189,7 +194,7 @@ public class StoryServiceImplTest {
 		storyMap.put(id, str);
 		Mockito.when((Story) hackerNewsApiService.getItemByIdAndClassType(id, Story.class))
 				.thenReturn(storyMap.get(id));
-		List<Comment> comments = storyServiceImpl.getCommentsOnTheStory(id);
+		List<Map<String, Object>> comments = storyServiceImpl.getCommentsOnTheStory(id);
 
 	}
 	
@@ -203,7 +208,7 @@ public class StoryServiceImplTest {
 					.thenReturn(allCommentMap.get(comid));
 		}
 		Mockito.when(hackerNewsApiService.getUserByUserId(usr.getId())).thenReturn(usr);
-		List<Comment> comments = storyServiceImpl.getCommentsOnTheStory(id);
+		List<Map<String, Object>> comments = storyServiceImpl.getCommentsOnTheStory(id);
 		System.out.println(comments);
 	}
 
@@ -220,14 +225,14 @@ public class StoryServiceImplTest {
 					.thenReturn(allCommentMap.get(comid));
 		}
 		Mockito.when(hackerNewsApiService.getUserByUserId(usr.getId())).thenReturn(usr);
-		List<Comment> comments = storyServiceImpl.getCommentsOnTheStory(id);
+		List<Map<String, Object>> comments = storyServiceImpl.getCommentsOnTheStory(id);
 		System.out.println(comments);
 	}
 
 	@Test(expected = StoryNotFoundException.class)
 	public void getPastStories() throws Exception {
 		Mockito.when(storyRepository.findAll()).thenReturn(null);
-		List<Story> stories = storyServiceImpl.getPastStories();
+		List<Map<String, Object>> stories = storyServiceImpl.getPastStories();
 		System.out.println(stories);
 	}
 	
