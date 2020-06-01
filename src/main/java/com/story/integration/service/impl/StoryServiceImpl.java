@@ -116,6 +116,10 @@ public class StoryServiceImpl implements StoryService {
 		return parentCommentList;
 	}
 
+	/*
+	 * 
+	 * To find the chained reply counts of each of the item
+	 */
 	private int parentWithReplyCommentCount(Integer id) {
 		Comment comment = (Comment) hackerNewsApiService.getItemByIdAndClassType(id, Comment.class);
 		if (comment.getKids() == null || comment.getKids().isEmpty()) {

@@ -3,6 +3,7 @@
 # Application name : story-app
 
 Technology Used : Java8, SpringBoot, In-memory db(H2Database), In-memory cache
+
 for documentation : Swagger2
 
 # URLs
@@ -17,7 +18,7 @@ for documentation : Swagger2
 # Application properties :
  1. Defined database configuration, cache configuration in "src/main/resource/application.yml".
  2. Cache configuration in "src/main/java/com/story/integration/config/CacheConfig.java";
- 2. Used In-memory database(H2databse)  and predefined schema("src/main/resources.schema.sql")
+ 2. Used In-memory database(H2databse)  and predefined schema("src/main/resources/schema.sql")
  3. Used In-memory cache
  4. Docker configuration file in "/Dockerfile"
  

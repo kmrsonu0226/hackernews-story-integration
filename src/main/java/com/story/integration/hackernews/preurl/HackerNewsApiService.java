@@ -40,7 +40,7 @@ public class HackerNewsApiService {
 			UriComponentsBuilder uri = UriComponentsBuilder.fromUriString(HACKERNEWS_URL + "/item/{id}.json").uriVariables(uriVarables);
 			ResponseEntity<Object> response = restTemplate.exchange(uri.toUriString(), HttpMethod.GET, null,
 					Object.class);
-			if (response.getBody() != null) {
+			if (response != null && response.getBody() != null) {
 				return mapper.readValue(mapper.writeValueAsString(response.getBody()), cls);
 			}
 		} catch (Exception e) {
@@ -58,7 +58,7 @@ public class HackerNewsApiService {
 	public Story getStoryById(Integer id) throws Exception {
 		UriComponentsBuilder uri = UriComponentsBuilder.fromUriString(HACKERNEWS_URL + "/item/" + id + ".json");
 		ResponseEntity<Object> response = restTemplate.exchange(uri.toUriString(), HttpMethod.GET, null, Object.class);
-		if (response.getBody() != null) {
+		if (response != null && response.getBody() != null) {
 			Story ns = new Story();
 			HashMap<String, Object> map = mapper.readValue(mapper.writeValueAsString(response.getBody()),
 					HashMap.class);
@@ -83,7 +83,7 @@ public class HackerNewsApiService {
 			UriComponentsBuilder uri = UriComponentsBuilder.fromUriString(HACKERNEWS_URL + "/newstories.json");
 			ResponseEntity<Object> response = restTemplate.exchange(uri.toUriString(), HttpMethod.GET, null,
 					Object.class);
-			if (response.getBody() != null) {
+			if (response != null && response.getBody() != null) {
 				storyList = mapper.readValue(mapper.writeValueAsString(response.getBody()), List.class);
 			}
 			return storyList;
@@ -100,7 +100,7 @@ public class HackerNewsApiService {
 			UriComponentsBuilder uri = UriComponentsBuilder.fromUriString(HACKERNEWS_URL + "/user/" + userId + ".json");
 			ResponseEntity<Object> response = restTemplate.exchange(uri.toUriString(), HttpMethod.GET, null,
 					Object.class);
-			if (response.getBody() != null) {
+			if (response != null && response.getBody() != null) {
 				user = mapper.readValue(mapper.writeValueAsString(response.getBody()), User.class);
 			}
 			return user;
